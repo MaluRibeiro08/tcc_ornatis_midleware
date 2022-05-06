@@ -10,33 +10,20 @@ app.use(express.urlencoded({extended:true}));
 // app.use('/', contaController);
 
 app.post('/contaAdministradora/cadastrarConta', (req, res)=>{
-
-    // let {nome, cpf, dataNascimento, foto, email, senha, telefone, idSexo} = req.body;
-
+    
     console.log(req.body);
-    // // res.send('INSERÇÃO');
 
-    // const urlCadastrarCliente = 'http://localhost/Cuidador/Cliente/api/cliente';
+    const urlCadastrarEmpresa = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/';
 
-    // axios.post(urlCadastrarCliente, 
-    //     {
-    //         nome : nome,
-    //         cpf : cpf,
-    //         dataNascimento : dataNascimento,
-    //         foto : foto,
-    //         email : email,
-    //         senha : senha,
-    //         telefone : telefone,
-    //         idSexo : idSexo
-    //     },
-    //     {
-    //         'content-type': 'application/json'
-    //     }
-    // ).then(function (response) {
-        console.log(`chegou`);
-        res.send('INSERÇÃO');
-    //     console.log('INSERÇÃO');
-    // })
+    axios.post(urlCadastrarEmpresa, req.body, {'content-type': 'application/json'}).then
+    (
+        function (response) 
+        {
+            res.send('INSERÇÃO');
+            console.log(response.data);
+        }
+    )
+
 
 });
 
