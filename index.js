@@ -9,55 +9,94 @@ app.use(express.urlencoded({extended:true}));
 // const contaController = require('./Controller/ContaAdministradoraController');
 // app.use('/', contaController);
 
-app.post('/contaAdministradora/cadastrarConta', (req, res)=>{
-    
-    console.log(req.body);
+// ADM - CONTA_ADM
+    //CADASTRO
+        app.post('/contaAdministradora/cadastrarConta', (req, res)=>{
+            
+            console.log(req.body);
 
-    const urlCadastrarEmpresa = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/';
+            const urlCadastrarEmpresa = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/';
 
-    axios.post(urlCadastrarEmpresa, req.body, {'content-type': 'application/json'}).then
-    (
-        function (response) 
-        {
+            axios.post(urlCadastrarEmpresa, req.body, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    res.send('INSERÇÃO');
+                    console.log(response.data);
+                }
+            )
+        });
+
+    //LISTAGEM DE PERFIL
+        app.get('/contaAdministradora/listarPerfil', (req, res)=>{
+                
+            console.log(req.body);
+
+            const urlCadastrarEmpresa = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/';
+
+            axios.post(urlCadastrarEmpresa, req.body, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    res.send('INSERÇÃO');
+                    console.log(response.data);
+                }
+            )
+        });
+
+// ADM - FUNCIONARIO
+    //CADASTRO
+        app.post('/contaAdministradora/cadastroFuncionario', (req, res)=>{
+                    
+            console.log(req.body);
+
+            const urlCadastrarFuncionario = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/funcionario/';
+
+            axios.post(urlCadastrarFuncionario, req.body, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    res.send('INSERÇÃO');
+                    console.log(response.data);
+                }
+            )
+        });
+
+
+// EXEMPLO PROFESSOR
+    app.post('/cliente/cadastrarcliente', (req, res)=>{
+
+        let {nome, cpf, dataNascimento, foto, email, senha, telefone, idSexo} = req.body;
+
+        console.log(req.body);
+        // res.send('INSERÇÃO');
+
+        const urlCadastrarCliente = 'http://localhost/Cuidador/Cliente/api/cliente';
+
+        axios.post(urlCadastrarCliente, 
+            {
+                nome : nome,
+                cpf : cpf,
+                dataNascimento : dataNascimento,
+                foto : foto,
+                email : email,
+                senha : senha,
+                telefone : telefone,
+                idSexo : idSexo
+            },
+            {
+                'content-type': 'application/json'
+            }
+        ).then(function (response) {
             res.send('INSERÇÃO');
-            console.log(response.data);
-        }
-    )
+            console.log('INSERÇÃO');
+        })
+
+    });
 
 
-});
-
-app.post('/cliente/cadastrarcliente', (req, res)=>{
-
-    let {nome, cpf, dataNascimento, foto, email, senha, telefone, idSexo} = req.body;
-
-    console.log(req.body);
-    // res.send('INSERÇÃO');
-
-    const urlCadastrarCliente = 'http://localhost/Cuidador/Cliente/api/cliente';
-
-    axios.post(urlCadastrarCliente, 
-        {
-            nome : nome,
-            cpf : cpf,
-            dataNascimento : dataNascimento,
-            foto : foto,
-            email : email,
-            senha : senha,
-            telefone : telefone,
-            idSexo : idSexo
-        },
-        {
-            'content-type': 'application/json'
-        }
-    ).then(function (response) {
-        res.send('INSERÇÃO');
-        console.log('INSERÇÃO');
-    })
-
-});
-
-app.listen(3001, ()=>{
-    console.log('SERVIDOR RODANDO EM http://localhost:3001');
-});
+// PORTA A SER ESCUTADA
+    app.listen(3001, ()=>{
+        console.log('SERVIDOR RODANDO EM http://localhost:3001');
+    });
 
