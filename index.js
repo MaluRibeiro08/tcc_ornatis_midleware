@@ -28,18 +28,21 @@ app.use(express.urlencoded({extended:true}));
         });
 
     //LISTAGEM DE PERFIL
-        app.get('/contaAdministradora/listarPerfil', (req, res)=>{
-                
-            console.log(req.body);
+        app.get('/contaAdministradora/listarPerfil/:id_empresa', (req, res)=>{
+            
+            console.log(req.params);
+            let id_empresa = req.params.id_empresa;
+            console.log(id_empresa);
 
-            const urlCadastrarEmpresa = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/';
+            const urlListagemDadosPerfil = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/contaAdministradora/?id_empresa=${id_empresa}&acao=carregarPerfil`;
 
-            axios.post(urlCadastrarEmpresa, req.body, {'content-type': 'application/json'}).then
+            console.log(urlListagemDadosPerfil);
+            axios.get(urlListagemDadosPerfil, res).then
             (
                 function (response) 
                 {
-                    res.send('INSERÇÃO');
-                    console.log(response.data);
+                    res.send(response.data.data);
+                    console.log(response.data.data);
                 }
             )
         });
