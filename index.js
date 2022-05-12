@@ -112,7 +112,7 @@ const getDados_pagamento = (obj_dados_pagamento) =>
             (
                 function (response) 
                 {
-                    console.log("teste");
+                    // console.log("teste");
                     console.log(response.data.data);
                     const dados_conta_adm_api = response.data.data;
 
@@ -125,24 +125,24 @@ const getDados_pagamento = (obj_dados_pagamento) =>
                     const contaAdministradora = 
                     {
                             
-                            nome_fantasia: 'teste 1005',
-                            cnpj: '23456789765432',
-                            telefone: '12345678654321',
-                            biografia: 'Biografia 1005',
-                            intervalo_tempo_padrao_entre_servicos: 15,
-                            taxa_unica_cancelamento: 12,
-                            imagem_perfil: null,
-                            nome_usuario_instagram: null,
-                            link_facebook: null,
-                            cep: '12345678',
-                            bairro: 'SPairro 1005',
-                            rua: 'Rua 1005',
-                            numero: '12',
-                            complemento: 'Complemento 1',
-                            id_cidade: 3510609,
-                            nome_cidade: 'Carapicuíba',
-                            nome_estado: 'São Paulo',
-                            sigla_estado: 'SP',
+                            nome_fantasia: dados_conta_adm_api.dados_empresa[0].nome_fantasia,
+                            cnpj: dados_conta_adm_api.dados_empresa[0].cnpj,
+                            telefone: dados_conta_adm_api.dados_empresa[0].telefone,
+                            biografia: dados_conta_adm_api.dados_empresa[0].biografia,
+                            intervalo_tempo_padrao_entre_servicos: dados_conta_adm_api.dados_empresa[0].intervalo_tempo_padrao_entre_servicos,
+                            taxa_unica_cancelamento: dados_conta_adm_api.dados_empresa[0].taxa_unica_cancelamento,
+                            imagem_perfil: dados_conta_adm_api.dados_empresa[0].imagem_perfil,
+                            nome_usuario_instagram: dados_conta_adm_api.dados_empresa[0].nome_usuario_instagram,
+                            link_facebook: dados_conta_adm_api.dados_empresa[0].link_facebook,
+                            cep: dados_conta_adm_api.dados_endereco_empresa[0].cep,
+                            bairro: dados_conta_adm_api.dados_endereco_empresa[0].bairro,
+                            rua: dados_conta_adm_api.dados_endereco_empresa[0].rua,
+                            numero_rua: dados_conta_adm_api.dados_endereco_empresa[0].numero,
+                            complemento: dados_conta_adm_api.dados_endereco_empresa[0].complemento,
+                            id_cidade: dados_conta_adm_api.dados_endereco_empresa[0].id_cidade,
+                            nome_cidade: dados_conta_adm_api.dados_endereco_empresa[0].nome_cidade,
+                            nome_estado: dados_conta_adm_api.dados_endereco_empresa[0].nome_estado,
+                            sigla_estado: dados_conta_adm_api.dados_endereco_empresa[0].sigla_estado,
 
                           dados_funcionamento: getDados_funcionamento(dados_conta_adm_api.dados_funcionamento),
                           dados_formas_pagamento: getDados_pagamento(dados_conta_adm_api.dados_pagamento.formas_aceitas),
