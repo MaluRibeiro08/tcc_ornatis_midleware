@@ -7,76 +7,77 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-//funcoes
-const getDados_funcionamento = (obj_dados_funcionamento) =>
-{
-    // console.log(response.data.data.dados_funcionamento[6]);
-    let arr_dados_funcionamento = [];
-
-    let contador = 1;
-    while (contador <= 7)
+//FUNCOES
+    const getDados_funcionamento = (obj_dados_funcionamento) =>
     {
-        if(obj_dados_funcionamento[contador]=== undefined)
+        // console.log(response.data.data.dados_funcionamento[6]);
+        let arr_dados_funcionamento = [];
+
+        let contador = 1;
+        while (contador <= 7)
         {
-            arr_dados_funcionamento.push('')
+            if(obj_dados_funcionamento[contador]=== undefined)
+            {
+                arr_dados_funcionamento.push(null)
+            }
+            else
+            {
+                // console.log("dia"+ contador + " é definido")
+                arr_dados_funcionamento.push(obj_dados_funcionamento[contador])
+            }
+            contador = contador + 1;
         }
-        else
-        {
-            // console.log("dia"+ contador + " é definido")
-            arr_dados_funcionamento.push(obj_dados_funcionamento[contador])
-        }
-        contador = contador + 1;
+        // console.log(arr_dados_funcionamento);
+        console.log(arr_dados_funcionamento);
+        return arr_dados_funcionamento;
     }
-    // console.log(arr_dados_funcionamento);
-    return arr_dados_funcionamento;
-}
 
-const getTaxas_cancelamento = (obj_taxas_cancelamento) =>
-{
-    // console.log(response.data.data.dados_funcionamento[6]);
-    let arr_taxas_cancelamentos = [];
-
-    let contador = 1;
-    while (contador <= tamanh_array_taxas)
+    const getTaxas_cancelamento = (obj_taxas_cancelamento) =>
     {
-        if(obj_taxas_cancelamento[contador]=== undefined)
+        // console.log(response.data.data.dados_funcionamento[6]);
+        let arr_taxas_cancelamentos = [];
+
+        let contador = 1;
+        while (contador <= tamanh_array_taxas)
         {
-            arr_taxas_cancelamentos.push('')
+            if(obj_taxas_cancelamento[contador]=== undefined)
+            {
+                arr_taxas_cancelamentos.push('')
+            }
+            else
+            {
+                // console.log("dia"+ contador + " é definido")
+                arr_taxas_cancelamentos.push(obj_taxas_cancelamento[contador])
+            }
+            contador = contador + 1;
         }
-        else
-        {
-            // console.log("dia"+ contador + " é definido")
-            arr_taxas_cancelamentos.push(obj_taxas_cancelamento[contador])
-        }
-        contador = contador + 1;
+        // console.log(arr_taxas_cancelamentos);
+        return arr_taxas_cancelamentos;
     }
-    // console.log(arr_taxas_cancelamentos);
-    return arr_taxas_cancelamentos;
-}
 
-const getDados_pagamento = (obj_dados_pagamento) =>
-{
-    // console.log(response.data.data.dados_funcionamento[6]);
-    let arr_dados_pagamento = [];
-
-    let contador = 1;
-    while (contador <= 6)
+    const getDados_pagamento = (obj_dados_pagamento) =>
     {
-        if(obj_dados_pagamento[contador]=== undefined)
+        // console.log(response.data.data.dados_funcionamento[6]);
+        let arr_dados_pagamento = [];
+
+        let contador = 1;
+        while (contador <= 6)
         {
-            // console.log("forma"+ contador + " é indefinido")
-            // arr_dados_pagamento.push('')
+            if(obj_dados_pagamento[contador]=== undefined)
+            {
+                // console.log("forma"+ contador + " é indefinido")
+                // arr_dados_pagamento.push('')
+            }
+            else
+            {
+                // console.log("forma"+ contador + " é definido")
+                arr_dados_pagamento.push(contador.toFixed())
+            }
+            contador = contador + 1;
         }
-        else
-        {
-            // console.log("forma"+ contador + " é definido")
-            arr_dados_pagamento.push(contador.toFixed())
-        }
-        contador = contador + 1;
+        // console.log(arr_dados_pagamento);
+        return arr_dados_pagamento;
     }
-    // console.log(arr_dados_pagamento);
-    return arr_dados_pagamento;
-}
 
 
 // ADM - CONTA_ADM
@@ -113,11 +114,16 @@ const getDados_pagamento = (obj_dados_pagamento) =>
                 function (response) 
                 {
                     // console.log("teste");
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
                     const dados_conta_adm_api = response.data.data;
 
                     const taxa_unica = dados_conta_adm_api.taxa_cancelamento_empresa.taxa_unica_cancelamento;
                     let taxas_personalizadas = null;
+
+                    // const arr = getDados_funcionamento(dados_conta_adm_api.dados_funcionamento);
+                    const arr = Object.values(dados_conta_adm_api.dados_funcionamento);
+                    // console.log(arr[0][0])
+                    // console.log(arr[0])
                     if(taxa_unica === undefined)
                     {
                         taxas_personalizadas = Object.values(dados_conta_adm_api.taxa_cancelamento_empresa);
@@ -125,32 +131,32 @@ const getDados_pagamento = (obj_dados_pagamento) =>
                     const contaAdministradora = 
                     {
                             
-                            nome_fantasia: dados_conta_adm_api.dados_empresa[0].nome_fantasia,
-                            cnpj: dados_conta_adm_api.dados_empresa[0].cnpj,
-                            telefone: dados_conta_adm_api.dados_empresa[0].telefone,
-                            biografia: dados_conta_adm_api.dados_empresa[0].biografia,
-                            intervalo_tempo_padrao_entre_servicos: dados_conta_adm_api.dados_empresa[0].intervalo_tempo_padrao_entre_servicos,
-                            taxa_unica_cancelamento: dados_conta_adm_api.dados_empresa[0].taxa_unica_cancelamento,
-                            imagem_perfil: dados_conta_adm_api.dados_empresa[0].imagem_perfil,
-                            nome_usuario_instagram: dados_conta_adm_api.dados_empresa[0].nome_usuario_instagram,
-                            link_facebook: dados_conta_adm_api.dados_empresa[0].link_facebook,
-                            cep: dados_conta_adm_api.dados_endereco_empresa[0].cep,
-                            bairro: dados_conta_adm_api.dados_endereco_empresa[0].bairro,
-                            rua: dados_conta_adm_api.dados_endereco_empresa[0].rua,
-                            numero_rua: dados_conta_adm_api.dados_endereco_empresa[0].numero,
-                            complemento: dados_conta_adm_api.dados_endereco_empresa[0].complemento,
-                            id_cidade: dados_conta_adm_api.dados_endereco_empresa[0].id_cidade,
-                            nome_cidade: dados_conta_adm_api.dados_endereco_empresa[0].nome_cidade,
-                            nome_estado: dados_conta_adm_api.dados_endereco_empresa[0].nome_estado,
-                            sigla_estado: dados_conta_adm_api.dados_endereco_empresa[0].sigla_estado,
+                        nome_fantasia: dados_conta_adm_api.dados_empresa[0].nome_fantasia,
+                        cnpj: dados_conta_adm_api.dados_empresa[0].cnpj,
+                        telefone: dados_conta_adm_api.dados_empresa[0].telefone,
+                        biografia: dados_conta_adm_api.dados_empresa[0].biografia,
+                        intervalo_tempo_padrao_entre_servicos: dados_conta_adm_api.dados_empresa[0].intervalo_tempo_padrao_entre_servicos,
+                        taxa_unica_cancelamento: dados_conta_adm_api.dados_empresa[0].taxa_unica_cancelamento,
+                        imagem_perfil: dados_conta_adm_api.dados_empresa[0].imagem_perfil,
+                        nome_usuario_instagram: dados_conta_adm_api.dados_empresa[0].nome_usuario_instagram,
+                        link_facebook: dados_conta_adm_api.dados_empresa[0].link_facebook,
+                        cep: dados_conta_adm_api.dados_endereco_empresa[0].cep,
+                        bairro: dados_conta_adm_api.dados_endereco_empresa[0].bairro,
+                        rua: dados_conta_adm_api.dados_endereco_empresa[0].rua,
+                        numero_rua: dados_conta_adm_api.dados_endereco_empresa[0].numero,
+                        complemento: dados_conta_adm_api.dados_endereco_empresa[0].complemento,
+                        id_cidade: dados_conta_adm_api.dados_endereco_empresa[0].id_cidade,
+                        nome_cidade: dados_conta_adm_api.dados_endereco_empresa[0].nome_cidade,
+                        nome_estado: dados_conta_adm_api.dados_endereco_empresa[0].nome_estado,
+                        sigla_estado: dados_conta_adm_api.dados_endereco_empresa[0].sigla_estado,
 
-                          dados_funcionamento: getDados_funcionamento(dados_conta_adm_api.dados_funcionamento),
-                          dados_formas_pagamento: getDados_pagamento(dados_conta_adm_api.dados_pagamento.formas_aceitas),
-                          observacoes_pagamento: dados_conta_adm_api.dados_pagamento.observacoes_pagamento,
-                          taxa_unica_cancelamento: taxa_unica,
-                          dados_taxa_cancelamento: taxas_personalizadas,
+                        dados_funcionamento: getDados_funcionamento(dados_conta_adm_api.dados_funcionamento),
+                        dados_formas_pagamento: getDados_pagamento(dados_conta_adm_api.dados_pagamento.formas_aceitas),
+                        observacoes_pagamento: dados_conta_adm_api.dados_pagamento.observacoes_pagamento,
+                        taxa_unica_cancelamento: taxa_unica,
+                        dados_taxa_cancelamento: taxas_personalizadas,
                         
-                        }
+                    }
 
 
                    
@@ -175,6 +181,26 @@ const getDados_pagamento = (obj_dados_pagamento) =>
                     res.statusCode = 200;
                     res.send(response.data);
                     console.log(response.data);
+                }
+            )
+        });
+
+    //LISTAGEM
+        app.get('/contaAdministradora/listarFuncionarios/:id_empresa', (req, res)=>{
+                
+            // console.log(req.params);
+            let id_empresa = req.params.id_empresa;
+            console.log(id_empresa);
+
+            const urlListagemDadosListarFuncionarios = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/funcionario/?id_empresa=${id_empresa}&acao=listarFuncionarios`;
+
+            axios.get(urlListagemDadosListarFuncionarios, res).then
+            (
+                function (response) 
+                {
+                    // console.log(response.data.data);
+
+                    res.send(response.data.data);
                 }
             )
         });
