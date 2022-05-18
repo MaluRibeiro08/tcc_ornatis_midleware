@@ -127,6 +127,7 @@ app.use(express.urlencoded({extended:true}));
                     if(taxa_unica === undefined)
                     {
                         taxas_personalizadas = Object.values(dados_conta_adm_api.taxa_cancelamento_empresa);
+                        console.log(taxas_personalizadas);
                     }                 
                     const contaAdministradora = 
                     {
@@ -201,6 +202,30 @@ app.use(express.urlencoded({extended:true}));
                     // console.log(response.data.data);
 
                     res.send(response.data.data);
+                }
+            )
+        });
+
+    //DELECAO
+        app.delete('/contaAdministradora/desabilitarFuncionario', (req, res)=>{
+                
+
+            // console.log(req.params);
+            let id_funcionario = req.params.id_funcionario;
+            // console.log(id_empresa);
+
+            const urlDeletarFuncionario = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/funcionario/?id_empresa=${id_funcionario}&acao=desabilitarFuncionario`;
+
+            console.log(urlDeletarFuncionario);
+          
+
+            axios.delete(urlDeletarFuncionario, req.body, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    // res.statusCode = 200;
+                    res.send(response.data);
+                    console.log(response.data);
                 }
             )
         });
