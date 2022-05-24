@@ -207,19 +207,66 @@ app.use(express.urlencoded({extended:true}));
         });
 
     //DELECAO
-        app.delete('/contaAdministradora/desabilitarFuncionario', (req, res)=>{
+        app.delete('/contaAdministradora/desabilitarFuncionario/:id_funcionario', (req, res)=>{
                 
 
             // console.log(req.params);
             let id_funcionario = req.params.id_funcionario;
             // console.log(id_empresa);
 
-            const urlDeletarFuncionario = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/funcionario/?id_empresa=${id_funcionario}&acao=desabilitarFuncionario`;
+            const urlDeletarFuncionario = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/funcionario/?id_funcionario=${id_funcionario}&acao=desabilitarFuncionario`;
 
             console.log(urlDeletarFuncionario);
           
 
             axios.delete(urlDeletarFuncionario, req.body, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    // res.statusCode = 200;
+                    res.send(response.data);
+                    console.log(response.data);
+                }
+            )
+        });
+
+
+// ADM - SERVICO
+    //CADASTRO
+        app.post('/contaAdministradora/cadastrarServico', (req, res)=>{
+                        
+            console.log(req.body);
+        });
+
+    //LISTAGEM
+        app.get('/contaAdministradora/listarServicos/:id_empresa', (req, res)=>{
+                
+            // console.log(req.params);
+            let id_empresa = req.params.id_empresa;
+            console.log("vamos listar os servicos da empresa " + id_empresa);
+
+            const urlListagemServicos = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/servico/?id_empresa=${id_empresa}&acao=listarServicosPorEmpresa`;
+
+            axios.get(urlListagemServicos, res).then
+            (
+                function (response) 
+                {
+                    console.log(response.data);
+                    res.send(response.data.data);
+                }
+            )
+        });
+
+    //DELECAO
+        app.delete('/contaAdministradora/desabilitarServico/:id_servico', (req, res)=>{
+                
+            console.log(req.params);
+            let id_servico = req.params.id_servico;
+            console.log(id_servico);
+
+            const urlDeletarServico = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/servico/?id_servico=${id_servico}&acao=desabilitarServico`;
+
+            axios.delete(urlDeletarServico, req.body, {'content-type': 'application/json'}).then
             (
                 function (response) 
                 {
