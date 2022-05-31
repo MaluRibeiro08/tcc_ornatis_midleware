@@ -278,6 +278,26 @@ app.use(express.urlencoded({extended:true}));
         });
 
 
+// CONSUMIDOR - CONTA_CONSUMIDOR
+    //CADASTRO
+    app.post('/consumidor/cadastrarConta', (req, res)=>{
+            
+        console.log(req.body);
+
+        const urlCadastrarConsumidor = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/consumidor/conta/';
+
+        // axios.post(urlCadastrarConsumidor, req.body, {'content-type': 'application/json'}).then
+        // (
+        //     function (response) 
+        //     {
+        //         res.statusCode = 200;
+        //         res.send(response.data);
+        //         console.log(response.data);
+        //     }
+        // )
+    });
+
+
 // EXEMPLO PROFESSOR
     app.post('/cliente/cadastrarcliente', (req, res)=>{
 
