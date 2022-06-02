@@ -286,15 +286,16 @@ app.use(express.urlencoded({extended:true}));
 
         const urlCadastrarConsumidor = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/consumidor/conta/';
 
-        // axios.post(urlCadastrarConsumidor, req.body, {'content-type': 'application/json'}).then
-        // (
-        //     function (response) 
-        //     {
-        //         res.statusCode = 200;
-        //         res.send(response.data);
-        //         console.log(response.data);
-        //     }
-        // )
+        axios.post(urlCadastrarConsumidor, req.body, {'content-type': 'application/json'}).then
+        (
+            function (response) 
+            {
+                res.statusCode = 200;
+                res.send({"id_consumidor":response.data.data});
+                console.log(`{"id_consumidor":${response.data.data}}`)
+                // console.log(response.data.data);
+            }
+        )
     });
 
 
