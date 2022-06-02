@@ -257,6 +257,44 @@ app.use(express.urlencoded({extended:true}));
             )
         });
 
+    //LISTAGEM DE ESPECIALIDADES
+        app.get('/contaAdministradora/getEspecialidades/:id_empresa', (req, res)=>{
+
+            console.log("teste listagem de especialidades")
+            let id_empresa = req.params.id_empresa;
+            console.log("vamos listar especialidades para a emprsa " + id_empresa);
+
+            const urlListagemEspecialidades = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/servico/?id_empresa=${id_empresa}&acao=listarEspecialidades`;
+
+            axios.get(urlListagemEspecialidades, res).then
+            (
+                function (response) 
+                {
+                    console.log(response.data);
+                    res.send(response.data.data);
+                }
+            )
+        });
+
+    //LISTAGEM DE PARTES DO CORPO
+        app.get('/contaAdministradora/getPartesCorpo/:id_empresa', (req, res)=>{
+
+            console.log("teste listagem de partes do corpo")
+            let id_empresa = req.params.id_empresa;
+            console.log("vamos listar partes do corpo para a emprsa " + id_empresa);
+
+            const urlListagemPartesCorpo = `http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/servico/?id_empresa=${id_empresa}&acao=listarPartesCorpo`;
+
+            axios.get(urlListagemPartesCorpo, res).then
+            (
+                function (response) 
+                {
+                    console.log(response.data);
+                    res.send(response.data.data);
+                }
+            )
+        });
+
     //DELECAO
         app.delete('/contaAdministradora/desabilitarServico/:id_servico', (req, res)=>{
                 
