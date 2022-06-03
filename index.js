@@ -234,8 +234,69 @@ app.use(express.urlencoded({extended:true}));
 // ADM - SERVICO
     //CADASTRO
         app.post('/contaAdministradora/cadastrarServico', (req, res)=>{
-                        
+                      
             console.log(req.body);
+            const servico = req.body;
+
+            //convertendo array de funcionarios para um objeto
+                const obj_funcionarios = {}
+
+                let contador = 0;
+                while (contador < servico.funcionarios.length) 
+                {
+                    obj_funcionarios[`${contador+1}`] = 
+                    (
+                        {"id_funcionario":servico.funcionarios[contador].id_funcionario}
+                    )
+                    contador = contador+1;
+                }
+                servico.funcionarios = obj_funcionarios;
+
+            //convertendo array de generos para um objeto
+                const obj_generos = {}
+
+                let contador_generos = 0;
+                while (contador_generos < servico.generos.length) 
+                {
+                    obj_generos[`${contador_generos+1}`] = 
+                    (
+                        {"id_genero":servico.generos[contador_generos].id_genero}
+                    )
+                    contador_generos = contador_generos+1;
+                }
+                servico.generos = obj_generos;
+
+
+            //convertendo array de generos para um objeto
+                const obj_tipo_atendimento = {}
+
+                let contador_tipos_atendimento = 0;
+                while (contador_tipos_atendimento < servico.tipos_atendimento.length) 
+                {
+                    obj_tipo_atendimento[`${contador_tipos_atendimento+1}`] = 
+                    (
+                        {"id_tipo_atendimento":servico.tipos_atendimento[contador_tipos_atendimento].id_tipo_atendimento}
+                    )
+                    contador_tipos_atendimento = contador_tipos_atendimento+1;
+                }
+                servico.tipos_atendimento = obj_tipo_atendimento;
+
+
+
+            console.log(servico)    
+            const urlCadastrarServico = 'http://localhost/tcc_ornatis_back-end/api-ornatis/rotas/adm/servico/';
+
+
+            axios.post(urlCadastrarServico, servico, {'content-type': 'application/json'}).then
+            (
+                function (response) 
+                {
+                    res.statusCode = 200;
+                    res.statusMessage = 'ok';
+                    res.send(response.data);
+                    console.log(response.data);
+                }
+            )
         });
 
     //LISTAGEM
